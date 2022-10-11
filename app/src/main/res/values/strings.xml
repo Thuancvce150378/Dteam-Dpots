@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dteam_Dpots</string>
+    <string-array name="IncomeRange">
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+</resources>
