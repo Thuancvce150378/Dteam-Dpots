@@ -8,13 +8,13 @@ public class ModelIntroApp extends Model{
 
     public ModelIntroApp(){
     }
-    public String getListIncome(){
-        List<Income> list = App.dbcontext.getIncomeList();
-        StringBuilder b = new StringBuilder();
-        for(Income item : list){
-            String content = item.getIncomeWith()+ " " + item.getamount();
-            b.append(content);
-        }
-        return b.toString();
-    }
+//    public String getListIncome(){
+//        List<Income> list = App.dbcontext.getIncomeList();
+//        StringBuilder b = new StringBuilder();
+//        for(Income item : list){
+//            String content = item.getIncomeWith()+ " " + item.getamount();
+//            b.append(content);
+//        }
+//        return b.toString();
+//    }
 }

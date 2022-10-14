@@ -23,16 +23,22 @@ Spinner spIncomeRange;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_income);
+        getValue();
+
+    btnNext.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+                getValue();
+                _model.AddIncome(spIncomeRange.getSelectedItem().toString(),Double.parseDouble("2000"));
+            startActivity(new Intent(ControllerSetupIncome.this, ControllerIntroApp.class));
+        }
+    });
+    }
+
+    void getValue(){
         Log.d("IncomeSetup", "IncomeSetup");
         btnNext = findViewById(R.id.btnNext);
         spIncomeRange = findViewById(R.id.spIncomeRange);
         txtAmount = (EditText)findViewById(R.id.txtAmount);
-    btnNext.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-//            _model.AddIncome(spIncomeRange.getSelectedItem().toString(),Double.parseDouble("2000"));
-            startActivity(new Intent(ControllerSetupIncome.this, ControllerIntroApp.class));
-        }
-    });
     }
 }

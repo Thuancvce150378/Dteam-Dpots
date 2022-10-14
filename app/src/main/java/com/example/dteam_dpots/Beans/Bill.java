@@ -9,13 +9,17 @@ public class Bill {
     private Double Currency;
     private String Description;
 
-    public Bill(String ID, String ID_Pottem, java.util.Date date, Double currency, String description) {
+    public Bill(String ID, String ID_Pottem, Date date, Double currency, String description) {
         this.ID = ID;
         this.ID_Pottem = ID_Pottem;
         Date = date;
         Currency = currency;
         Description = description;
     }
+
+    public Bill() {
+    }
+
 
     public String getID() {
         return ID;

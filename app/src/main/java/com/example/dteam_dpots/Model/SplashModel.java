@@ -5,7 +5,7 @@ public class SplashModel extends com.example.dteam_dpots.Base.Model {
         super();
     }
 
-    public String getText() {
-        return App.dbcontext.getText();
-    }
+//    public String getText() {
+//        return App.dbcontext.getText();
+//    }
 }

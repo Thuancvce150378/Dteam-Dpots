@@ -1,18 +1,220 @@
 package com.example.dteam_dpots.DatabaseContext;
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import com.example.dteam_dpots.Beans.*;
 
 import com.example.dteam_dpots.Beans.Income;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-public class DAO {
+public class DAO  extends SQLiteOpenHelper {
 //cau lenh query excute sql
-    public DAO() {
+    public DAO(Context context ) {
+        super(context, "DB4.db", null, 1);
     }
 
-    public List<Income> getIncomeList() {
-        Income[] incomeList = {new Income("Month", 1000D), new Income("Month", 2000D), new Income("Month", 3000D)};
-        return Arrays.asList(incomeList);
+    /*Create Database*/
+    @Override
+    public void onCreate(SQLiteDatabase DB) {
+        DB.execSQL("create Table tpPlanBill( " +
+                "ID TEXT PRIMARY KEY NOT NULL," +
+                "ID_PotItem  TEXT  NOT NULL," +
+                "estiminate REAL  NOT NULL," +
+                "isCheck INTERGER  NOT NULL," +
+                "description TEXT NOT NULL," +
+                "FOREIGN KEY (ID_PotItem) REFERENCES tbPotItem(ID)" +
+                ")");
+
+        DB.execSQL("create Table tpPot( " +
+                "ID TEXT PRIMARY KEY NOT NULL," +
+                "percent INTEGER  NOT NULL," +
+                "ID_Income TEXT NOT NULL," +
+                "FOREIGN KEY (ID_Income) REFERENCES tbIncome(ID)" +
+                ")");
+
+        DB.execSQL("create Table tbInCome( " +
+                "ID TEXT PRIMARY KEY NOT NULL," +
+                "ID_IncomeRange TEXT NOT NULL," +
+                "amount INTEGER NOT NULL," +
+                "FOREIGN KEY (ID_IncomeRange) REFERENCES tbIncomeRange(ID)" +
+                ")");
+
+        DB.execSQL("create Table tpPotItem( " +
+                "ID TEXT PRIMARY KEY NOT NULL," +
+                "picture TEXT NOT NULL," +
+                "text TEXT NOT NULL" +
+                ")");
+
+        DB.execSQL("create Table tbBill( " +
+                "ID TEXT PRIMARY KEY NOT NULL," +
+                "ID_PotItem TEXT  NOT NULL," +
+                "date TEXT  NOT NULL," +
+                "currency REAL NOT NULL," +
+                "description TEXT NOT NULL," +
+                "FOREIGN KEY (ID_PotItem) REFERENCES tpPotItem(ID)" +
+                ")");
+
+        DB.execSQL("create Table tbIncomeRange( " +
+                "ID TEXT PRIMARY KEY NOT NULL," +
+                "name TEXT NOT NULL" +
+                ")");
+    }
+
+    /*Update Database*/
+    @Override
+    public void onUpgrade(SQLiteDatabase DB, int i, int ii) {
+        DB.execSQL("drop Table if exists tpPlanBill");
+        DB.execSQL("drop Table if exists tpPot");
+        DB.execSQL("drop Table if exists tbInCome");
+        DB.execSQL("drop Table if exists tpPotItem");
+        DB.execSQL("drop Table if exists tbBill");
+        DB.execSQL("drop Table if exists tbIncomeRange");
+    }
+
+    /*InsertIncome*/
+    public Boolean insertInCome(Income income)
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID", income.getID());
+        contentValues.put("ID_IncomeRange", income.getID_InComeRange());
+        contentValues.put("amount", income.getAmount());
+
+        long result=DB.insert("tbInCome", null, contentValues);
+        if(result==-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /*Get List InComeRange*/
+    @SuppressLint("Range")
+    public List<IncomeRange> getListIncomeRange()
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbIncomeRange",null);
+        if(c == null) {
+            return null;
+        }
+        else{
+            List<IncomeRange> incomeRangeList = new ArrayList<>();
+            while (c.moveToNext()) {
+                IncomeRange incomeRange = new IncomeRange(c.getString(c.getColumnIndex("ID"))
+                ,c.getString(c.getColumnIndex("name")));
+                incomeRangeList.add(incomeRange);
+            }
+            return incomeRangeList;
+        }
+    }
+
+    /*Get List Bill*/
+    @SuppressLint("Range")
+    public List<Bill> getListBill()
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbBill",null);
+        if(c == null) {
+            return null;
+        }
+        else{
+            List<Bill> billList = new ArrayList<>();
+            while (c.moveToNext()) {
+                Bill bill = new Bill(c.getString(c.getColumnIndex("ID"))
+                        ,c.getString(c.getColumnIndex("ID_PotItem"))
+                        ,new Date(c.getString(c.getColumnIndex("date")))
+                        ,c.getDouble(c.getColumnIndex("currency"))
+                        ,c.getString(c.getColumnIndex("description"))
+                );
+                billList.add(bill);
+            }
+            return billList;
+        }
+    }
+
+    /*Insert Bill*/
+    public Boolean insertInComeRange(String ID, String name)
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+        contentValues.put("ID", ID);
+        long result=DB.insert("tbIncomeRange", null, contentValues);
+        if(result==-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /*Insert Bill*/
+    public Boolean insertBill(String ID, String ID_Pottem, Date Date, Double Currency, String Description)
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID",ID);
+        contentValues.put("ID_PotItem",ID_Pottem);
+        contentValues.put("date", String.valueOf(Date));
+        contentValues.put("currency",Currency);
+        contentValues.put("description",Description);
+
+        long result=DB.insert("tbBill", null, contentValues);
+        if(result==-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /*Delete Bill*/
+    public Boolean deleteBill(String ID)
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from tbBill where ID = ?", new String[]{ID});
+        if (cursor.getCount() > 0) {
+            long result = DB.delete("tbBill", "ID=?", new String[]{ID});
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /*Delete Bill*/
+    public Boolean updateBill(String ID, Date Date, Double Currency, String Description)
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID",ID);
+        contentValues.put("date", String.valueOf(Date));
+        contentValues.put("currency",Currency);
+        contentValues.put("description",Description);
+        Cursor cursor = DB.rawQuery("Select * from tbBill where ID = ?", new String[]{ID});
+        if (cursor.getCount() > 0) {
+            long result = DB.update("tbBill", contentValues, "name=?", new String[]{ID});
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }

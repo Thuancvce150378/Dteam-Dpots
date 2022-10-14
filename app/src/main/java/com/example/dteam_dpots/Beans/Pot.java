@@ -6,7 +6,7 @@ public class Pot {
     private String ID;
     private String ID_Income;
     private int Perent;
-    private List<Pottem>ListPottem;
+    private List<PotItem>ListPottem;
     public Pot(String ID, String ID_Income, int perent) {
         this.ID = ID;
         this.ID_Income = ID_Income;
@@ -37,11 +37,11 @@ public class Pot {
         Perent = perent;
     }
 
-    public List<Pottem> getListPottem() {
+    public List<PotItem> getListPottem() {
         return ListPottem;
     }
 
-    public void setListPottem(List<Pottem> listPottem) {
+    public void setListPottem(List<PotItem> listPottem) {
         ListPottem = listPottem;
     }
 }

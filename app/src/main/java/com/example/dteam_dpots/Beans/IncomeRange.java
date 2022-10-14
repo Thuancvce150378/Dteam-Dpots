@@ -5,12 +5,10 @@ import java.util.List;
 public class IncomeRange {
 
     private String ID;
-    private String ID_InCome;
-    private Double Name;
+    private String Name;
 
-    public IncomeRange(String ID, String ID_InCome, Double name) {
-        this.ID = ID;
-        this.ID_InCome = ID_InCome;
+    public IncomeRange(String id, String name) {
+        ID = id;
         Name = name;
     }
 
@@ -22,19 +20,11 @@ public class IncomeRange {
         this.ID = ID;
     }
 
-    public String getID_InCome() {
-        return ID_InCome;
-    }
-
-    public void setID_InCome(String ID_InCome) {
-        this.ID_InCome = ID_InCome;
-    }
-
-    public Double getName() {
+    public String getName() {
         return Name;
     }
 
-    public void setName(Double name) {
+    public void setName(String name) {
         Name = name;
     }
 
