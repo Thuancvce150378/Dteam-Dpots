@@ -14,6 +14,9 @@ public class Income {
         this.ID = id;
     }
 
+    public Income() {
+    }
+
     public String getID() {
         return ID;
     }

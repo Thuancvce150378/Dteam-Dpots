@@ -7,6 +7,8 @@ import com.example.dteam_dpots.DpotsApp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
 //quan ly cac su kien cua object
 public class DBContext {
     DAO cn;
@@ -18,25 +20,25 @@ public class DBContext {
     }
 
     public <T> void add(T value) {
-        Log.d("DBContext","DBContext");
+        Log.d("DBContext", "DBContext");
         switch (value.getClass().getSimpleName()) {
             case "Income":
                 Income income = (Income) value;
-                if(cn.insertInCome(income))
-                    Log.d("CONSOLE","ADD thanh cong");
-                else    Log.d("CONSOLE","ADD that bai");
+                if (cn.insertInCome(income))
+                    Log.d("CONSOLE", "ADD thanh cong");
+                else Log.d("CONSOLE", "ADD that bai");
                 break;
             case "IncomeRange":
                 IncomeRange incomeRange = (IncomeRange) value;
-                if(cn.insertInComeRange(incomeRange.getID(),incomeRange.getName()))
-                    Log.d("CONSOLE","ADD thanh cong");
-                else    Log.d("CONSOLE","ADD that bai");
+                if (cn.insertInComeRange(incomeRange.getID(), incomeRange.getName()))
+                    Log.d("CONSOLE", "ADD thanh cong");
+                else Log.d("CONSOLE", "ADD that bai");
                 break;
             case "Bill":
                 Bill bill = (Bill) value;
-                if(cn.insertBill(bill.getID(), bill.getID_Pottem(), bill.getDate(),bill.getCurrency(), bill.getDescription()))
-                    Log.d("CONSOLE","ADD thanh cong");
-                else    Log.d("CONSOLE","ADD that bai");
+                if (cn.insertBill(bill.getID(), bill.getID_Pottem(), bill.getDate(), bill.getCurrency(), bill.getDescription()))
+                    Log.d("CONSOLE", "ADD thanh cong");
+                else Log.d("CONSOLE", "ADD that bai");
                 break;
         }
     }
@@ -45,9 +47,9 @@ public class DBContext {
         switch (value.getClass().getSimpleName()) {
             case "Bill":
                 Bill bill = (Bill) value;
-                if(cn.deleteBill(bill.getID()))
-                    Log.d("CONSOLE","Delete thanh cong");
-                else    Log.d("CONSOLE","Delete that bai");
+                if (cn.deleteBill(bill.getID()))
+                    Log.d("CONSOLE", "Delete thanh cong");
+                else Log.d("CONSOLE", "Delete that bai");
                 break;
         }
     }
@@ -56,9 +58,9 @@ public class DBContext {
         switch (value.getClass().getSimpleName()) {
             case "Bill":
                 Bill bill = (Bill) value;
-                if(cn.updateBill(bill.getID(), bill.getDate(),bill.getCurrency(), bill.getDescription()))
-                    Log.d("CONSOLE","Update thanh cong");
-                else    Log.d("CONSOLE","Update that bai");
+                if (cn.updateBill(bill.getID(), bill.getDate(), bill.getCurrency(), bill.getDescription()))
+                    Log.d("CONSOLE", "Update thanh cong");
+                else Log.d("CONSOLE", "Update that bai");
                 break;
         }
     }
@@ -70,7 +72,18 @@ public class DBContext {
 
     public List<IncomeRange> GetListIncomeRangeList() {
         List<IncomeRange> incomeRangeList = cn.getListIncomeRange();
-        Log.d("GetListIncomeRangeList","GetListIncomeRangeList");
+        Log.d("GetListIncomeRangeList", "GetListIncomeRangeList");
         return incomeRangeList;
+    }
+
+    /*Income*/
+    public Income GetIncome() {
+        Income income = cn.getIncome();
+        return income;
+    }
+
+    public void UpdateListPot(List<Pot> listPot) throws Exception {
+        //update list pot to database
+        cn.updateListPot(listPot);
     }
 }

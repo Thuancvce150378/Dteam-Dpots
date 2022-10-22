@@ -4,4 +4,87 @@
         <item>Week</item>
         <item>Month</item>
     </string-array>
+
+    <string name="AppIntro">
+        We help you manage your finances according to the modern 6-cup method, helping you to divide the necessary parts for spending in life.
+    </string>
+
+    <string name="POT_NEC_NAME">
+        NEC
+    </string>
+
+    <string name="POT_NEC_NAME_FULL">
+        Neccessities
+    </string>
+
+    <string name="POT_NEC_DESCRIPTION">
+        Food, water, shelter, clothing, transportation, etc.
+    </string>
+
+    <string name="POT_LTS_NAME">
+        LTS
+    </string>
+
+    <string name="POT_LTS_NAME_FULL">
+        Long Term Savings
+    </string>
+
+    <string name="POT_LTS_DESCRIPTION">
+        Long-term savings for retirement, education, etc.
+    </string>
+
+    <string name="POT_EDU_NAME">
+        EDU
+    </string>
+
+    <string name="POT_EDU_NAME_FULL">
+        Education
+    </string>
+
+    <string name="POT_EDU_DESCRIPTION">
+        Education for children, yourself, etc.
+    </string>
+
+    <string name="POT_PLAY_NAME">
+        PLAY
+    </string>
+
+    <string name="POT_PLAY_NAME_FULL">
+        Play
+    </string>
+
+    <string name="POT_PLAY_DESCRIPTION">
+        Entertainment, hobbies, etc.
+    </string>
+
+    <string name="POT_FFA_NAME">
+        FFA
+    </string>
+
+    <string name="POT_FFA_NAME_FULL">
+        Financial Freedom Account
+    </string>
+
+    <string name="POT_FFA_DESCRIPTION">
+        Financial freedom account for your future.
+    </string>
+
+    <string name="POT_GIVE_NAME">
+        GIVE
+    </string>
+
+    <string name="POT_GIVE_NAME_FULL">
+        Give
+    </string>
+
+    <string name="POT_GIVE_DESCRIPTION">
+        Giving to others, charity, etc.
+    </string>
+    <string name="POT_NEC_RECOMMENT">55</string>
+    <string name="POT_LTS_RECOMMENT">10</string>
+    <string name="POT_EDU_RECOMMENT">10</string>
+    <string name="POT_PLAY_RECOMMENT">10</string>
+    <string name="POT_FFA_RECOMMENT">10</string>
+    <string name="POT_GIVE_RECOMMENT">5</string>
+
 </resources>

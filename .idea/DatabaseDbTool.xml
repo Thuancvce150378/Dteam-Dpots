@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseDbTool">
+    <option name="sources">
+      <map>
+        <entry key="localhost">
+          <value>
+            <DataConfigSourceDto>
+              <option name="comment" value="" />
+              <option name="dataBaseType" value="Sqlite" />
+              <option name="database" value="main" />
+              <option name="databaseName" value="localhost" />
+              <option name="databaseSslConfig">
+                <DatabaseSslConfig>
+                  <option name="caFile" value="" />
+                  <option name="clientCertificateFile" value="" />
+                  <option name="clientKeyFile" value="" />
+                  <option name="clientKeyPassword" value="" />
+                  <option name="sslMode" value="REQUIRE" />
+                </DatabaseSslConfig>
+              </option>
+              <option name="dbFile" value="/data/app/com.example.dteam_dpots-u1HzHoUgg80nx1js7ExICQ" />
+              <option name="driverType" value="SQLite" />
+              <option name="host" value="localhost" />
+              <option name="jarUrl" value="C:\Users\Admin\AppData\Roaming\Google\AndroidStudio2021.3\jdbc-drivers\Xerial SQLiteJDBC\3.36.0.3\sqlite-jdbc-3.36.0.3.jar" />
+              <option name="myUniqueId" value="71b5cbf8-4486-4e30-b3f2-0e251de32f16" />
+              <option name="port" value="3306" />
+              <option name="properties">
+                <map />
+              </option>
+              <option name="schemaSourceDto">
+                <SchemaSourceDto>
+                  <option name="name" value="main" />
+                  <option name="tableSources">
+                    <list>
+                      <TableSourceDto>
+                        <option name="columns">
+                          <list>
+                            <ColumnSourceDto>
+                              <option name="autoIncrement" value="true" />
+                              <option name="columnName" value="type" />
+                              <option name="typeName" value="text" />
+                            </ColumnSourceDto>
+                            <ColumnSourceDto>
+                              <option name="autoIncrement" value="true" />
+                              <option name="columnName" value="name" />
+                              <option name="typeName" value="text" />
+                            </ColumnSourceDto>
+                            <ColumnSourceDto>
+                              <option name="autoIncrement" value="true" />
+                              <option name="columnName" value="tbl_name" />
+                              <option name="typeName" value="text" />
+                            </ColumnSourceDto>
+                            <ColumnSourceDto>
+                              <option name="autoIncrement" value="true" />
+                              <option name="columnName" value="rootpage" />
+                              <option name="typeName" value="int" />
+                            </ColumnSourceDto>
+                            <ColumnSourceDto>
+                              <option name="autoIncrement" value="true" />
+                              <option name="columnName" value="sql" />
+                              <option name="typeName" value="text" />
+                            </ColumnSourceDto>
+                          </list>
+                        </option>
+                        <option name="databaseType" value="Sqlite" />
+                        <option name="schema" value="main" />
+                        <option name="tableName" value="sqlite_master" />
+                        <option name="tableType" value="table" />
+                      </TableSourceDto>
+                    </list>
+                  </option>
+                </SchemaSourceDto>
+              </option>
+              <option name="sid" value="" />
+              <option name="url" value="jdbc:sqlite:/data/app/com.example.dteam_dpots-u1HzHoUgg80nx1js7ExICQ" />
+              <option name="userName" value="" />
+            </DataConfigSourceDto>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

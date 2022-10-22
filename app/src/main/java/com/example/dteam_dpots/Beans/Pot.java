@@ -5,14 +5,24 @@ import java.util.List;
 public class Pot {
     private String ID;
     private String ID_Income;
-    private int Perent;
+    private String shortName;
+    private String fullName;
+    private String description;
+    private int Percent;
     private List<PotItem>ListPottem;
-    public Pot(String ID, String ID_Income, int perent) {
+
+    public Pot(String ID, String ID_Income, String shortName, String fullName, String description, int percent, List<PotItem> listPottem) {
         this.ID = ID;
         this.ID_Income = ID_Income;
-        Perent = perent;
+        this.shortName = shortName;
+        this.fullName = fullName;
+        this.description = description;
+        Percent = percent;
+        ListPottem = listPottem;
     }
 
+    public Pot() {
+    }
     public String getID() {
         return ID;
     }
@@ -29,12 +39,36 @@ public class Pot {
         this.ID_Income = ID_Income;
     }
 
-    public int getPerent() {
-        return Perent;
+    public String getShortName() {
+        return shortName;
     }
 
-    public void setPerent(int perent) {
-        Perent = perent;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPercent() {
+        return Percent;
+    }
+
+    public void setPercent(int percent) {
+        Percent = percent;
     }
 
     public List<PotItem> getListPottem() {

@@ -1,5 +1,6 @@
 package com.example.dteam_dpots.Model;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.dteam_dpots.Base.Model;
 import com.example.dteam_dpots.Beans.*;
@@ -29,5 +30,12 @@ public class ModelSetupIncome extends Model {
         //add income
         Income income = new Income(App.uuid.genID(),idIncomeRange,amount);
         App.dbcontext.add(income);
+    }
+
+    public boolean checkIncome() throws Exception  {
+        Income income = App.dbcontext.GetIncome();
+        if(income!= null)
+            return true;
+        return false;
     }
 }

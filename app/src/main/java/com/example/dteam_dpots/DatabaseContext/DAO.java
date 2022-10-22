@@ -1,4 +1,5 @@
 package com.example.dteam_dpots.DatabaseContext;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,9 +22,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DAO  extends SQLiteOpenHelper {
-//cau lenh query excute sql
-    public DAO(Context context ) {
+import com.example.dteam_dpots.Util.*;
+
+public class DAO extends SQLiteOpenHelper {
+    //cau lenh query excute sql
+    public DAO(Context context) {
         super(context, "DB4.db", null, 1);
     }
 
@@ -42,6 +46,9 @@ public class DAO  extends SQLiteOpenHelper {
                 "ID TEXT PRIMARY KEY NOT NULL," +
                 "percent INTEGER  NOT NULL," +
                 "ID_Income TEXT NOT NULL," +
+                "short_name TEXT NOT NULL," +
+                "full_name TEXT NOT NULL," +
+                "description TEXT NOT NULL," +
                 "FOREIGN KEY (ID_Income) REFERENCES tbIncome(ID)" +
                 ")");
 
@@ -85,36 +92,49 @@ public class DAO  extends SQLiteOpenHelper {
     }
 
     /*InsertIncome*/
-    public Boolean insertInCome(Income income)
-    {
+    public Boolean insertInCome(Income income) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", income.getID());
         contentValues.put("ID_IncomeRange", income.getID_InComeRange());
         contentValues.put("amount", income.getAmount());
 
-        long result=DB.insert("tbInCome", null, contentValues);
-        if(result==-1){
+        long result = DB.insert("tbInCome", null, contentValues);
+        if (result == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    /*Get List InComeRange*/
-    @SuppressLint("Range")
-    public List<IncomeRange> getListIncomeRange()
-    {
+    /*GetIncome*/
+    public Income getIncome() {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor c = DB.rawQuery("SELECT * FROM tbIncomeRange",null);
-        if(c == null) {
+        Cursor cursor = DB.rawQuery("Select * from tbInCome", null);
+        Income income = new Income();
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            income.setID(cursor.getString(0));
+            income.setID_InComeRange(cursor.getString(1));
+            income.setAmount(cursor.getDouble(2));
+        } else {
             return null;
         }
-        else{
+        return income;
+    }
+
+    /*Get List InComeRange*/
+    @SuppressLint("Range")
+    public List<IncomeRange> getListIncomeRange() {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbIncomeRange", null);
+        if (c == null) {
+            return null;
+        } else {
             List<IncomeRange> incomeRangeList = new ArrayList<>();
             while (c.moveToNext()) {
                 IncomeRange incomeRange = new IncomeRange(c.getString(c.getColumnIndex("ID"))
-                ,c.getString(c.getColumnIndex("name")));
+                        , c.getString(c.getColumnIndex("name")));
                 incomeRangeList.add(incomeRange);
             }
             return incomeRangeList;
@@ -123,21 +143,19 @@ public class DAO  extends SQLiteOpenHelper {
 
     /*Get List Bill*/
     @SuppressLint("Range")
-    public List<Bill> getListBill()
-    {
+    public List<Bill> getListBill() {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor c = DB.rawQuery("SELECT * FROM tbBill",null);
-        if(c == null) {
+        Cursor c = DB.rawQuery("SELECT * FROM tbBill", null);
+        if (c == null) {
             return null;
-        }
-        else{
+        } else {
             List<Bill> billList = new ArrayList<>();
             while (c.moveToNext()) {
                 Bill bill = new Bill(c.getString(c.getColumnIndex("ID"))
-                        ,c.getString(c.getColumnIndex("ID_PotItem"))
-                        ,new Date(c.getString(c.getColumnIndex("date")))
-                        ,c.getDouble(c.getColumnIndex("currency"))
-                        ,c.getString(c.getColumnIndex("description"))
+                        , c.getString(c.getColumnIndex("ID_PotItem"))
+                        , new Date(c.getString(c.getColumnIndex("date")))
+                        , c.getDouble(c.getColumnIndex("currency"))
+                        , c.getString(c.getColumnIndex("description"))
                 );
                 billList.add(bill);
             }
@@ -146,42 +164,39 @@ public class DAO  extends SQLiteOpenHelper {
     }
 
     /*Insert Bill*/
-    public Boolean insertInComeRange(String ID, String name)
-    {
+    public Boolean insertInComeRange(String ID, String name) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
         contentValues.put("ID", ID);
-        long result=DB.insert("tbIncomeRange", null, contentValues);
-        if(result==-1){
+        long result = DB.insert("tbIncomeRange", null, contentValues);
+        if (result == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     /*Insert Bill*/
-    public Boolean insertBill(String ID, String ID_Pottem, Date Date, Double Currency, String Description)
-    {
+    public Boolean insertBill(String ID, String ID_Pottem, Date Date, Double Currency, String Description) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("ID",ID);
-        contentValues.put("ID_PotItem",ID_Pottem);
+        contentValues.put("ID", ID);
+        contentValues.put("ID_PotItem", ID_Pottem);
         contentValues.put("date", String.valueOf(Date));
-        contentValues.put("currency",Currency);
-        contentValues.put("description",Description);
+        contentValues.put("currency", Currency);
+        contentValues.put("description", Description);
 
-        long result=DB.insert("tbBill", null, contentValues);
-        if(result==-1){
+        long result = DB.insert("tbBill", null, contentValues);
+        if (result == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     /*Delete Bill*/
-    public Boolean deleteBill(String ID)
-    {
+    public Boolean deleteBill(String ID) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from tbBill where ID = ?", new String[]{ID});
         if (cursor.getCount() > 0) {
@@ -197,14 +212,13 @@ public class DAO  extends SQLiteOpenHelper {
     }
 
     /*Delete Bill*/
-    public Boolean updateBill(String ID, Date Date, Double Currency, String Description)
-    {
+    public Boolean updateBill(String ID, Date Date, Double Currency, String Description) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("ID",ID);
+        contentValues.put("ID", ID);
         contentValues.put("date", String.valueOf(Date));
-        contentValues.put("currency",Currency);
-        contentValues.put("description",Description);
+        contentValues.put("currency", Currency);
+        contentValues.put("description", Description);
         Cursor cursor = DB.rawQuery("Select * from tbBill where ID = ?", new String[]{ID});
         if (cursor.getCount() > 0) {
             long result = DB.update("tbBill", contentValues, "name=?", new String[]{ID});
@@ -216,5 +230,24 @@ public class DAO  extends SQLiteOpenHelper {
         } else {
             return false;
         }
+    }
+
+    public void updateListPot(List<Pot> listPot) throws Exception {
+        SQLiteDatabase DB = this.getWritableDatabase();
+
+        //remove all row in table tpPot
+        Log.d("updateListPot", "remove all row in table tpPot");
+        DB.execSQL("delete from tpPot");
+        for (Pot pot : listPot) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("ID", pot.getID());
+            contentValues.put("percent", pot.getPercent());
+            contentValues.put("ID_Income", pot.getID_Income());
+            contentValues.put("short_name", pot.getShortName());
+            contentValues.put("full_name", pot.getFullName());
+            contentValues.put("description", pot.getDescription());
+            DB.insert("tpPot", null, contentValues);
+        }
+    Log.d("updateListPot", "updateListPot success");
     }
 }
