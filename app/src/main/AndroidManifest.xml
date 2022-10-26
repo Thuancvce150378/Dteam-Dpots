@@ -14,7 +14,21 @@
         android:theme="@style/Theme.Dteam_Dpots"
         tools:targetApi="31">
         <activity
-            android:name=".ControllerHistoryPot"
+            android:name=".Controller.ControllerAddPlan"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Controller.ControllerPlanToPay"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Controller.ControllerHistoryPot"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

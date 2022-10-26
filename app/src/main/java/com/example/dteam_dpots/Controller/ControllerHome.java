@@ -12,7 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ControllerHome extends AppCompatActivity {
 
-    FloatingActionButton fabAddTransaction;
+    FloatingActionButton fabAddTransaction, fabPlan;
     ImageButton ibUpdateIncome;
     ImageButton ibNECPot, ibLTSPot, ibEDUPot, ibPLAYPot, ibFFAPot, ibGIVEPot;
     @Override
@@ -48,6 +48,16 @@ public class ControllerHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ControllerHome.this, ControllerHistoryPot.class);
+                startActivity(intent);
+            }
+        });
+
+        fabPlan = findViewById(R.id.fabPlan);
+        //change activity to Plan page
+        fabPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControllerHome.this, ControllerPlanToPay.class);
                 startActivity(intent);
             }
         });
