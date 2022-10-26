@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Dteam_Dpots</string>
-    <string name="discription">discription</string>
     <string-array name="IncomeRange">
         <item>Week</item>
         <item>Month</item>
