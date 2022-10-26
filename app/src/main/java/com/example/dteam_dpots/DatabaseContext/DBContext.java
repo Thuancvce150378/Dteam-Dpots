@@ -14,6 +14,7 @@ public class DBContext {
     DAO cn;
     List<Income> incomeList = new ArrayList<Income>();
     List<IncomeRange> incomeRangeList = new ArrayList<>();
+    List<Pot> Pots = new ArrayList<>();
 
     public DBContext(DpotsApp dpotsApp) {
         cn = new DAO(dpotsApp);
@@ -86,4 +87,16 @@ public class DBContext {
         //update list pot to database
         cn.updateListPot(listPot);
     }
+
+    public List<Pot> GetListPot() {
+        return cn.getListPot();
+    }
+
+    public boolean isSetup() {
+        Income income= this.GetIncome();
+        List<Pot> pots = this.GetListPot();
+            return income!=null && pots.size()>0;
+    }
+
+
 }

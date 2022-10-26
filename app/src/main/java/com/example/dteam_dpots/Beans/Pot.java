@@ -11,14 +11,13 @@ public class Pot {
     private int Percent;
     private List<PotItem>ListPottem;
 
-    public Pot(String ID, String ID_Income, String shortName, String fullName, String description, int percent, List<PotItem> listPottem) {
+    public Pot(String ID, String ID_Income, String shortName, String fullName, String description, int percent) {
         this.ID = ID;
         this.ID_Income = ID_Income;
         this.shortName = shortName;
         this.fullName = fullName;
         this.description = description;
         Percent = percent;
-        ListPottem = listPottem;
     }
 
     public Pot() {

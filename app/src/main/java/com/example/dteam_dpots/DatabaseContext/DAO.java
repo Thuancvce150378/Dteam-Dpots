@@ -42,7 +42,7 @@ public class DAO extends SQLiteOpenHelper {
                 "FOREIGN KEY (ID_PotItem) REFERENCES tbPotItem(ID)" +
                 ")");
 
-        DB.execSQL("create Table tpPot( " +
+        DB.execSQL("create Table tbPot( " +
                 "ID TEXT PRIMARY KEY NOT NULL," +
                 "percent INTEGER  NOT NULL," +
                 "ID_Income TEXT NOT NULL," +
@@ -59,7 +59,7 @@ public class DAO extends SQLiteOpenHelper {
                 "FOREIGN KEY (ID_IncomeRange) REFERENCES tbIncomeRange(ID)" +
                 ")");
 
-        DB.execSQL("create Table tpPotItem( " +
+        DB.execSQL("create Table tbPotItem( " +
                 "ID TEXT PRIMARY KEY NOT NULL," +
                 "picture TEXT NOT NULL," +
                 "text TEXT NOT NULL" +
@@ -71,7 +71,7 @@ public class DAO extends SQLiteOpenHelper {
                 "date TEXT  NOT NULL," +
                 "currency REAL NOT NULL," +
                 "description TEXT NOT NULL," +
-                "FOREIGN KEY (ID_PotItem) REFERENCES tpPotItem(ID)" +
+                "FOREIGN KEY (ID_PotItem) REFERENCES tbPotItem(ID)" +
                 ")");
 
         DB.execSQL("create Table tbIncomeRange( " +
@@ -84,9 +84,9 @@ public class DAO extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase DB, int i, int ii) {
         DB.execSQL("drop Table if exists tpPlanBill");
-        DB.execSQL("drop Table if exists tpPot");
+        DB.execSQL("drop Table if exists tbPot");
         DB.execSQL("drop Table if exists tbInCome");
-        DB.execSQL("drop Table if exists tpPotItem");
+        DB.execSQL("drop Table if exists tbPotItem");
         DB.execSQL("drop Table if exists tbBill");
         DB.execSQL("drop Table if exists tbIncomeRange");
     }
@@ -235,9 +235,9 @@ public class DAO extends SQLiteOpenHelper {
     public void updateListPot(List<Pot> listPot) throws Exception {
         SQLiteDatabase DB = this.getWritableDatabase();
 
-        //remove all row in table tpPot
-        Log.d("updateListPot", "remove all row in table tpPot");
-        DB.execSQL("delete from tpPot");
+        //remove all row in table tbPot
+        Log.d("updateListPot", "remove all row in table tbPot");
+        DB.execSQL("delete from tbPot");
         for (Pot pot : listPot) {
             ContentValues contentValues = new ContentValues();
             contentValues.put("ID", pot.getID());
@@ -246,8 +246,36 @@ public class DAO extends SQLiteOpenHelper {
             contentValues.put("short_name", pot.getShortName());
             contentValues.put("full_name", pot.getFullName());
             contentValues.put("description", pot.getDescription());
-            DB.insert("tpPot", null, contentValues);
+            DB.insert("tbPot", null, contentValues);
         }
-    Log.d("updateListPot", "updateListPot success");
+        Log.d("updateListPot", "updateListPot success");
+    }
+
+    public List<Pot> getListPot() {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbPot", null);
+        if (c == null) {
+            return null;
+        } else {
+            List<Pot> potList = new ArrayList<>();
+            while (c.moveToNext()) {
+                /*private String ID;
+    private String ID_Income;
+    private String shortName;
+    private String fullName;
+    private String description;
+    private int Percent;*/
+                @SuppressLint("Range") Pot Pot = new Pot(
+                        c.getString(c.getColumnIndex("ID"))
+                        , c.getString(c.getColumnIndex("ID_Income"))
+                        , c.getString(c.getColumnIndex("short_name"))
+                        , c.getString(c.getColumnIndex("full_name"))
+                        , c.getString(c.getColumnIndex("description"))
+                        , c.getInt(c.getColumnIndex("percent"))
+                );
+                potList.add(Pot);
+            }
+            return potList;
+        }
     }
 }

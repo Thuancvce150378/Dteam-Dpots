@@ -85,7 +85,7 @@ public class ControllerPotsSetup extends AppCompatActivity {
                         return;
                     }
                     _model.saveChange();
-                    //nextpage
+                    startActivity(new Intent(ControllerPotsSetup.this, ControllerHome.class));
                 } catch (Exception e) {
                     Toast.makeText(ControllerPotsSetup.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
