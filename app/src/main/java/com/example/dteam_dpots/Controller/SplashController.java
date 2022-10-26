@@ -19,7 +19,7 @@ public class SplashController extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         txt = findViewById(R.id.textView);
-        txt.setText(_model.getText());
+//        txt.setText(_model.getText());
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

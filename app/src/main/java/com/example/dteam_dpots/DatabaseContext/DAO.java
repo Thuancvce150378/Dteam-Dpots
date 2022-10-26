@@ -1,21 +1,35 @@
 package com.example.dteam_dpots.DatabaseContext;
+
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import com.example.dteam_dpots.Beans.*;
 
 import com.example.dteam_dpots.Beans.Income;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-public class DAO {
-//cau lenh query excute sql
-    public DAO() {
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.dteam_dpots.Util.*;
+
+public class DAO extends SQLiteOpenHelper {
+    //cau lenh query excute sql
+    public DAO(Context context) {
+        super(context, "DB4.db", null, 1);
     }
 
-<<<<<<< HEAD
-    public List<Income> getIncomeList() {
-        Income[] incomeList = {new Income("Month", 1000D), new Income("Month", 2000D), new Income("Month", 3000D)};
-        return Arrays.asList(incomeList);
-=======
     /*Create Database*/
     @Override
     public void onCreate(SQLiteDatabase DB) {
@@ -263,6 +277,5 @@ public class DAO {
             }
             return potList;
         }
->>>>>>> 24bedac (Update setup Income)
     }
 }

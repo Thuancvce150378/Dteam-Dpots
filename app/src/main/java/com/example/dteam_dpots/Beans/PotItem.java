@@ -2,14 +2,14 @@ package com.example.dteam_dpots.Beans;
 
 import java.util.List;
 
-public class Pottem {
+public class PotItem {
     private String ID;
     private String Picture;
     private String Name;
     private List<Bill> ListBill;
     private List<PlanBill>ListPlanBill;
 
-    public Pottem(String ID, String picture, String name) {
+    public PotItem(String ID, String picture, String name) {
         this.ID = ID;
         Picture = picture;
         Name = name;
