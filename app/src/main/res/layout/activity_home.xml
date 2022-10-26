@@ -55,7 +55,7 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/img_btn_edit"
+                            android:id="@+id/ibUpdateIncome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"

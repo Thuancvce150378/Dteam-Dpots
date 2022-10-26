@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.dteam_dpots.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class ControllerHome extends AppCompatActivity {
 
     FloatingActionButton fabAddTransaction;
+    ImageButton ibUpdateIncome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,17 @@ public class ControllerHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ControllerHome.this, ControllerAddTransaction.class);
+                startActivity(intent);
+            }
+        });
+
+        ibUpdateIncome = findViewById(R.id.ibUpdateIncome);
+
+        //change activity to update income
+        ibUpdateIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControllerHome.this, ControllerUpdateIncome.class);
                 startActivity(intent);
             }
         });
