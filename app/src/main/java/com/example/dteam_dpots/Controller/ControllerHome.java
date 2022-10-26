@@ -14,6 +14,7 @@ public class ControllerHome extends AppCompatActivity {
 
     FloatingActionButton fabAddTransaction;
     ImageButton ibUpdateIncome;
+    ImageButton ibNECPot, ibLTSPot, ibEDUPot, ibPLAYPot, ibFFAPot, ibGIVEPot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,16 @@ public class ControllerHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ControllerHome.this, ControllerUpdateIncome.class);
+                startActivity(intent);
+            }
+        });
+
+        ibNECPot = findViewById(R.id.ibNECPot);
+        //change activity to NEC Pot
+        ibNECPot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControllerHome.this, ControllerHistoryPot.class);
                 startActivity(intent);
             }
         });

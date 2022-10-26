@@ -136,7 +136,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/ibNECPot"
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_weight="1"
@@ -164,7 +164,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/ibLTSPot"
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_weight="1"
@@ -179,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="NEC"
+                    android:text="LTS"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -192,7 +192,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/ibEDUPot"
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_weight="1"
@@ -207,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="NEC"
+                    android:text="EDU"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -227,7 +227,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/ibPLAYPot"
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_weight="1"
@@ -242,7 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="NEC"
+                    android:text="PLAY"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -255,7 +255,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/ibFFAPot"
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_weight="1"
@@ -270,7 +270,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="NEC"
+                    android:text="FFA"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -283,7 +283,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/ibGIVEPot"
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_weight="1"
@@ -298,7 +298,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="NEC"
+                    android:text="GIVE"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
