@@ -28,6 +28,9 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Controller.ControllerHome"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false">
             <meta-data

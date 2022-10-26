@@ -9,6 +9,11 @@ import java.util.List;
 public class DBContext {
     DAO cn;
     List<Income> incomeList = new ArrayList<Income>();
+<<<<<<< HEAD
+=======
+    List<IncomeRange> incomeRangeList = new ArrayList<>();
+    List<Pot> Pots = new ArrayList<>();
+>>>>>>> 24bedac (Update setup Income)
 
     //constructor
     public DBContext() {
@@ -40,4 +45,29 @@ public class DBContext {
     }
 
 
+<<<<<<< HEAD
+=======
+    /*Income*/
+    public Income GetIncome() {
+        Income income = cn.getIncome();
+        return income;
+    }
+
+    public void UpdateListPot(List<Pot> listPot) throws Exception {
+        //update list pot to database
+        cn.updateListPot(listPot);
+    }
+
+    public List<Pot> GetListPot() {
+        return cn.getListPot();
+    }
+
+    public boolean isSetup() {
+        Income income= this.GetIncome();
+        List<Pot> pots = this.GetListPot();
+            return income!=null && pots.size()>0;
+    }
+
+
+>>>>>>> 24bedac (Update setup Income)
 }
