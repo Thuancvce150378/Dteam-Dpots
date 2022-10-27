@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 //set up ControllerHome as default Intert
                 Intent intent = new Intent(MainActivity.this, ControllerHome.class);
                 startActivity(intent);
+                finish();
                 return;
             }
             //set up ControllerSetup as default Intert
@@ -28,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 
     private boolean isSetup() {
