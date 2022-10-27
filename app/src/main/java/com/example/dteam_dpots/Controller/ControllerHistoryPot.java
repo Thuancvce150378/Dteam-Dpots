@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.appcompat.view.menu.MenuView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -26,11 +25,11 @@ public class ControllerHistoryPot extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_pot);
 
-        ibOptionChoice = findViewById(R.id.ibOptionChoice);
+        ibOptionChoice = findViewById(R.id.ibOptionChoicePotHistory);
         menuBuilder = new MenuBuilder(this);
 
         MenuInflater inflater = new MenuInflater(this);
-        inflater.inflate(R.menu.popupmenuhistorypot, menuBuilder);
+        inflater.inflate(R.menu.popupmenuoptionchoice, menuBuilder);
 
         ibOptionChoice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,4 +67,4 @@ public class ControllerHistoryPot extends AppCompatActivity {
         });
         optionMenu.show();
     }
-    }
+}
