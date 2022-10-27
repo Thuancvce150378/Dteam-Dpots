@@ -78,5 +78,5 @@
         android:contentDescription="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/back_to" />
+        app:srcCompat="@drawable/back_page" />
 </androidx.constraintlayout.widget.ConstraintLayout>
