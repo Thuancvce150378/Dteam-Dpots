@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/customSpinnerItemLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivSpinnerLayoutAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kfc_chicken"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/tvSpinnerLayoutAdd"
+            android:layout_width="226dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Food"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvSpinnerDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NEC"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:padding="10dp" />
+
+    </LinearLayout>
+</RelativeLayout>
