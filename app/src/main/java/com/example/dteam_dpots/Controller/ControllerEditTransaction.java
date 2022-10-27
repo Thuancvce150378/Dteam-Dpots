@@ -2,9 +2,11 @@ package com.example.dteam_dpots.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ public class ControllerEditTransaction extends AppCompatActivity implements Adap
 
     Spinner customSpinner;
     ArrayList<CustomSpinnerItem> customList;
+    ImageButton ibOK, ibBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,25 @@ public class ControllerEditTransaction extends AppCompatActivity implements Adap
             customSpinner.setAdapter(adapter);
             customSpinner.setOnItemSelectedListener(this);
         }
+
+        ibOK = findViewById(R.id.ibOKEditTransaction);
+        ibBack = findViewById(R.id.ibBackEditTransaction);
+
+        ibOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControllerEditTransaction.this, ControllerTotalHistory.class);
+                startActivity(intent);
+            }
+        });
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControllerEditTransaction.this, ControllerTotalHistory.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<CustomSpinnerItem> getCustomList() {

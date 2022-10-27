@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/btnOk"
+        android:id="@+id/ibOKUpdateIncome"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
-        android:id="@+id/btnBack"
+        android:id="@+id/ibBackUpdateIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

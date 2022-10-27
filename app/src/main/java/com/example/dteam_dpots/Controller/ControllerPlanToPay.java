@@ -11,7 +11,7 @@ import com.example.dteam_dpots.*;
 
 public class ControllerPlanToPay extends AppCompatActivity {
 
-    ImageButton ibAddPlan;
+    ImageButton ibAddPlan, ibBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,5 +25,15 @@ public class ControllerPlanToPay extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ibBack = findViewById(R.id.ibBackPlanToPay);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControllerPlanToPay.this, ControllerHome.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
