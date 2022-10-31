@@ -99,4 +99,12 @@ public class DBContext {
     }
 
 
+    public double GetBalance() {
+        double balance = 0;
+        List<Bill> bills = this.GetListBill();
+        for (Bill bill : bills) {
+            balance += bill.getCurrency();
+        }
+        return balance;
+    }
 }
