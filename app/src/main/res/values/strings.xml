@@ -22,6 +22,18 @@
         Food, water, shelter, clothing, transportation, etc.
     </string>
 
+    <string-array name="POT_NEC_ITEM">
+        <item>Food</item>
+        <item>Water</item>
+        <item>Shelter</item>
+        <item>Clothing</item>
+        <item>Transportation</item>
+        <item>Health</item>
+        <item>Education</item>
+        <item>Insurance</item>
+        <item>Charity</item>
+    </string-array>
+
     <string name="POT_LTS_NAME">
         LTS
     </string>

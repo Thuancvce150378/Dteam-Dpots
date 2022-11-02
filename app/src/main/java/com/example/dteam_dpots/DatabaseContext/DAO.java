@@ -13,6 +13,8 @@ import com.example.dteam_dpots.Beans.Income;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -61,8 +63,10 @@ public class DAO extends SQLiteOpenHelper {
 
         DB.execSQL("create Table tbPotItem( " +
                 "ID TEXT PRIMARY KEY NOT NULL," +
-                "picture TEXT NOT NULL," +
-                "text TEXT NOT NULL" +
+                "ID_Pot TEXT NOT NULL," +
+                "picture INTEGER NOT NULL," +
+                "text TEXT NOT NULL," +
+                "FOREIGN KEY (ID_Pot) REFERENCES tbPot(ID)" +
                 ")");
 
         DB.execSQL("create Table tbBill( " +
@@ -237,6 +241,7 @@ public class DAO extends SQLiteOpenHelper {
 
         //remove all row in table tbPot
         Log.d("updateListPot", "remove all row in table tbPot");
+        DB.execSQL("delete from tbPotItem");
         DB.execSQL("delete from tbPot");
         for (Pot pot : listPot) {
             ContentValues contentValues = new ContentValues();
@@ -247,6 +252,14 @@ public class DAO extends SQLiteOpenHelper {
             contentValues.put("full_name", pot.getFullName());
             contentValues.put("description", pot.getDescription());
             DB.insert("tbPot", null, contentValues);
+            for (PotItem potItem : pot.getListPottem()) {
+                contentValues = new ContentValues();
+                contentValues.put("ID", potItem.getID());
+                contentValues.put("ID_Pot", pot.getID());
+                contentValues.put("text", potItem.getName());
+                contentValues.put("picture", potItem.getPicture());
+                DB.insert("tbPotItem", null, contentValues);
+            }
         }
         Log.d("updateListPot", "updateListPot success");
     }
@@ -259,12 +272,6 @@ public class DAO extends SQLiteOpenHelper {
         } else {
             List<Pot> potList = new ArrayList<>();
             while (c.moveToNext()) {
-                /*private String ID;
-    private String ID_Income;
-    private String shortName;
-    private String fullName;
-    private String description;
-    private int Percent;*/
                 @SuppressLint("Range") Pot Pot = new Pot(
                         c.getString(c.getColumnIndex("ID"))
                         , c.getString(c.getColumnIndex("ID_Income"))
@@ -278,4 +285,58 @@ public class DAO extends SQLiteOpenHelper {
             return potList;
         }
     }
-}
+
+    public void insertPotItem(String id, int picture, String name, String id_pot) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID", id);
+        contentValues.put("picture", picture);
+        contentValues.put("name", name);
+        contentValues.put("ID_Pot", id_pot);
+        DB.insert("tbPotItem", null, contentValues);
+    }
+
+    public void updateListPotItem(List<Pot> listPot) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        //remove all row in table tbPotItem
+        Log.d("updateListPotItem", "remove all row in table tbPotItem");
+        DB.execSQL("delete from tbPotItem");
+        for (Pot pot : listPot) {
+            for (PotItem potItem : pot.getListPottem()) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("ID", potItem.getID());
+                contentValues.put("picture", potItem.getPicture());
+                contentValues.put("name", potItem.getName());
+                contentValues.put("ID_Pot", pot.getID());
+                DB.insert("tbPotItem", null, contentValues);
+            }
+        }
+        Log.d("updateListPotItem", "updateListPotItem success");
+    }
+
+    public ArrayList<PotItem> getListPotItem(String Potname) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        //get id from pot name
+        Cursor c = DB.rawQuery("SELECT * FROM tbPot where short_name = ?", new String[]{Potname});
+
+        if (c == null) {
+            return null;
+        } else {
+            c.moveToFirst();
+            @SuppressLint("Range") String id = c.getString(c.getColumnIndex("ID"));
+            c = DB.rawQuery("SELECT * FROM tbPotItem where ID_Pot = ?", new String[]{id});
+            ArrayList<PotItem> potItemList = new ArrayList<>();
+            while (c.moveToNext()) {
+                @SuppressLint("Range") PotItem PotItem = new PotItem(
+                        c.getString(c.getColumnIndex("ID"))
+                        , c.getInt(c.getColumnIndex("picture"))
+                        , c.getString(c.getColumnIndex("text"))
+                        , c.getString(c.getColumnIndex("ID_Pot"))
+                );
+                potItemList.add(PotItem);
+            }
+            return potItemList;
+        }
+        }
+
+    }

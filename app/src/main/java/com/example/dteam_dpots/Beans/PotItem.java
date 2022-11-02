@@ -4,12 +4,20 @@ import java.util.List;
 
 public class PotItem {
     private String ID;
-    private String Picture;
+    private int Picture;
     private String Name;
+    private String ID_Pot;
     private List<Bill> ListBill;
     private List<PlanBill>ListPlanBill;
 
-    public PotItem(String ID, String picture, String name) {
+    public PotItem(String ID, int picture, String name, String ID_Pot) {
+        this.ID = ID;
+        Picture = picture;
+        Name = name;
+        this.ID_Pot = ID_Pot;
+    }
+
+    public PotItem(String ID, int picture, String name) {
         this.ID = ID;
         Picture = picture;
         Name = name;
@@ -23,11 +31,11 @@ public class PotItem {
         this.ID = ID;
     }
 
-    public String getPicture() {
+    public int getPicture() {
         return Picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(int picture) {
         Picture = picture;
     }
 
@@ -37,6 +45,14 @@ public class PotItem {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public String getID_Pot() {
+        return ID_Pot;
+    }
+
+    public void setID_Pot(String ID_Pot) {
+        this.ID_Pot = ID_Pot;
     }
 
     public List<Bill> getListBill() {

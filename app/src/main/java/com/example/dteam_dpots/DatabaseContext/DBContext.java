@@ -93,9 +93,17 @@ public class DBContext {
     }
 
     public boolean isSetup() {
-        Income income= this.GetIncome();
+        Income income = this.GetIncome();
         List<Pot> pots = this.GetListPot();
-            return income!=null && pots.size()>0;
+        int totalPercent = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            totalPercent = pots.stream().mapToInt(Pot::getPercent).sum();
+        } else {
+            for (Pot pot : pots) {
+                totalPercent += pot.getPercent();
+            }
+        }
+        return income!= null && income.getAmount() > 0 && totalPercent == 100;
     }
 
 
@@ -106,5 +114,18 @@ public class DBContext {
             balance += bill.getCurrency();
         }
         return balance;
+    }
+
+    public ArrayList<PotItem> getPotItem(String Potname) {
+        ArrayList<PotItem> potItemList = cn.getListPotItem(Potname);
+        return potItemList;
+    }
+
+    /*private String ID;
+        private String Picture;
+        private String Name;
+        private String ID_Pot;*/
+    public void addPotItem(PotItem potItem) {
+        cn.insertPotItem(potItem.getID(), potItem.getPicture(), potItem.getName(), potItem.getID_Pot());
     }
 }

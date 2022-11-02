@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     tools:context=".Controller.ControllerHistoryPot">
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="0dp"
@@ -34,7 +35,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txtpotName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pot Name" />
@@ -51,7 +52,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/txtPotAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4000" />
@@ -69,7 +70,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/txtPotBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2000" />
@@ -80,99 +81,31 @@
 
     </TableLayout>
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+    <RelativeLayout
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:scrollbars="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_centerVertical="true"
+             />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txtAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="All"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtlistname1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Food"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtAll3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Gas"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtAll2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Gas"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtAll4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Gas"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtAll5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Gas"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtAll6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Gas"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtAll7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Gas"
-                android:textSize="25sp" />
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+        app:layout_constraintTop_toBottomOf="@+id/list_item"
+        tools:layout_editor_absoluteX="5dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -1356,4 +1289,6 @@
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.dteam_dpots.Beans.Pot;
+import com.example.dteam_dpots.Beans.PotItem;
 import com.example.dteam_dpots.DatabaseContext.*;
+import com.example.dteam_dpots.*;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Stack;
 
@@ -78,13 +82,70 @@ public class ModelPotsSetup extends com.example.dteam_dpots.Base.Model {
     }
 
     public boolean saveChange() throws Exception {
-        App.dbcontext.GetIncome().setListPot(listPot); //still save to db
-        App.dbcontext.UpdateListPot(this.listPot);
+
+
+        Dictionary<String, List> potItemDictionary = new Hashtable<>();
+        potItemDictionary.put(Default.POT_NEC_NAME, new ArrayList<PotItem>());
+        potItemDictionary.put(Default.POT_EDU_NAME, new ArrayList<PotItem>());
+        potItemDictionary.put(Default.POT_FFA_NAME, new ArrayList<PotItem>());
+        potItemDictionary.put(Default.POT_GIVE_NAME, new ArrayList<PotItem>());
+        potItemDictionary.put(Default.POT_LTS_NAME, new ArrayList<PotItem>());
+        potItemDictionary.put(Default.POT_PLAY_NAME, new ArrayList<PotItem>());
+
+        ArrayList<PotItem> NEC_ITEM = new ArrayList<PotItem>();
+        ArrayList<PotItem> EDU_ITEM = new ArrayList<PotItem>();
+        ArrayList<PotItem> FFA_ITEM = new ArrayList<PotItem>();
+        ArrayList<PotItem> GIVE_ITEM = new ArrayList<PotItem>();
+        ArrayList<PotItem> LTS_ITEM = new ArrayList<PotItem>();
+        ArrayList<PotItem> PLAY_ITEM = new ArrayList<PotItem>();
+
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Food"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Clothes"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Transport"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Health"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+
+        potItemDictionary.get(Default.POT_NEC_NAME).addAll(NEC_ITEM);
+
+        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "School"));
+        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "University"));
+        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+
+        potItemDictionary.get(Default.POT_EDU_NAME).addAll(EDU_ITEM);
+
+        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Car"));
+        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "House"));
+        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+
+        potItemDictionary.get(Default.POT_FFA_NAME).addAll(FFA_ITEM);
+
+        GIVE_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Charity"));
+        GIVE_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+
+        potItemDictionary.get(Default.POT_GIVE_NAME).addAll(GIVE_ITEM);
+
+        LTS_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Travel"));
+        LTS_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+
+        potItemDictionary.get(Default.POT_LTS_NAME).addAll(LTS_ITEM);
+
+        PLAY_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Entertainment"));
+        PLAY_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+
+        potItemDictionary.get(Default.POT_PLAY_NAME).addAll(PLAY_ITEM);
+
 
         //print list pot
         for (Pot pot : listPot) {
             Log.d("Pot >> ", pot.getShortName() + " : " + pot.getPercent());
+            //add PotItem
+            for (PotItem potItem : (ArrayList<PotItem>) potItemDictionary.get(pot.getShortName())) {
+                potItem.setID_Pot(pot.getID());
+            }
+            pot.setListPottem(potItemDictionary.get(pot.getShortName()));
         }
+        App.dbcontext.GetIncome().setListPot(listPot); //still save to db
+        App.dbcontext.UpdateListPot(this.listPot);
         return true;
     }
 }
