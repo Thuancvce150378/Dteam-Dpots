@@ -166,6 +166,39 @@ public class DAO extends SQLiteOpenHelper {
             return billList;
         }
     }
+    public List<Bill> getListBill(String idPotItem) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbBill WHERE ID_PotItem = ?", new String[]{idPotItem});
+        if (c == null) {
+
+            return null;
+        } else {
+            List<Bill> billList = new ArrayList<>();
+            while (c.moveToNext()) {
+                @SuppressLint("Range") Bill bill = new Bill(c.getString(c.getColumnIndex("ID"))
+                        , c.getString(c.getColumnIndex("ID_PotItem"))
+                        , new Date(c.getString(c.getColumnIndex("date")))
+                        , c.getDouble(c.getColumnIndex("currency"))
+                        , c.getString(c.getColumnIndex("description"))
+                );
+                billList.add(bill);
+            }
+            java.sql.Date date = java.sql.Date.valueOf("2020-01-01");
+            java.sql.Date date1 = java.sql.Date.valueOf("2020-01-02");
+            billList.add(new Bill("0", idPotItem, date, 0D, "0"));
+            billList.add(new Bill("1", idPotItem, date, 0D, "0"));
+            billList.add(new Bill("2", idPotItem, date, 0D, "0"));
+            billList.add(new Bill("3", idPotItem, date, 0D, "0"));
+            billList.add(new Bill("4", idPotItem, date1, 1D, "1"));
+            billList.add(new Bill("5", idPotItem, date1, 1D, "1"));
+            billList.add(new Bill("6", idPotItem, date1, 1D, "1"));
+            billList.add(new Bill("7", idPotItem, date1, 1D, "1"));
+            billList.add(new Bill("8", idPotItem, date1, 1D, "1"));
+
+
+            return billList;
+        }
+    }
 
     /*Insert Bill*/
     public Boolean insertInComeRange(String ID, String name) {
@@ -333,10 +366,30 @@ public class DAO extends SQLiteOpenHelper {
                         , c.getString(c.getColumnIndex("text"))
                         , c.getString(c.getColumnIndex("ID_Pot"))
                 );
+                PotItem.setListBill(getListBill(PotItem.getID()));
                 potItemList.add(PotItem);
             }
             return potItemList;
         }
         }
 
+    public Pot getPot(String potName) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbPot where short_name = ?", new String[]{potName});
+        if (c == null) {
+            return null;
+        } else {
+            c.moveToFirst();
+            @SuppressLint("Range") Pot Pot = new Pot(
+                    c.getString(c.getColumnIndex("ID"))
+                    , c.getString(c.getColumnIndex("ID_Income"))
+                    , c.getString(c.getColumnIndex("short_name"))
+                    , c.getString(c.getColumnIndex("full_name"))
+                    , c.getString(c.getColumnIndex("description"))
+                    , c.getInt(c.getColumnIndex("percent"))
+            );
+            Pot.setListPottem(getListPotItem(Pot.getShortName()));
+            return Pot;
+        }
     }
+}

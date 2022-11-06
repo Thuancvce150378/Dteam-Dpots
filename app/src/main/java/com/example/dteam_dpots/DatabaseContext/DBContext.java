@@ -128,4 +128,12 @@ public class DBContext {
     public void addPotItem(PotItem potItem) {
         cn.insertPotItem(potItem.getID(), potItem.getPicture(), potItem.getName(), potItem.getID_Pot());
     }
+
+    public Pot getPot(String potName) {
+        return cn.getPot(potName);
+    }
+
+    public boolean deleteBill(Bill pill) {
+        return cn.deleteBill(pill.getID());
+    }
 }

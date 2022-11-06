@@ -20,7 +20,7 @@ public class ModelHome extends Model {
 
     //double to unit money vietnam
     public String doubleToMoneyVND(double d) {
-        return String.format("%,.0f", d);
+        return App.format.doubleToMoneyVND(d);
     }
 
 }
