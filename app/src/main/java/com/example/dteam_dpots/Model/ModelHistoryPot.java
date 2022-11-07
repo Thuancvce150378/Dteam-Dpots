@@ -1,6 +1,7 @@
 package com.example.dteam_dpots.Model;
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -65,16 +66,15 @@ public class ModelHistoryPot extends Model {
         return App.format.doubleToMoneyVND(d);
     }
 
-    public double getPotAmount(String potName) {
-        Pot pot = App.dbcontext.getPot(potName);
+    public double getPotAmount() {
+        Pot pot = this.pot;
         Income income = App.dbcontext.GetIncome();
         return income.getAmount() * pot.getPercent() / 100;
     }
 
-    public double getPotBalance(String potName) {
-        Pot pot = App.dbcontext.getPot(potName);
-        double balance = getPotAmount(potName);
-        for (PotItem potItem : App.dbcontext.getPotItem(potName)) {
+    public double getPotBalance() {
+        double balance = getPotAmount();
+        for (PotItem potItem : pot.getListPottem()) {
             for (Bill bill : potItem.getListBill()) {
                 balance -= bill.getCurrency();
             }
@@ -85,15 +85,18 @@ public class ModelHistoryPot extends Model {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean deleteBill(Bill bill) {
+        boolean result = false;
         try{
-//            App.dbcontext.deleteBill(bill);
-            this.BillList.remove(bill);
-            this.pot.getListPottem().forEach(potItem -> {
-                potItem.getListBill().remove(bill);
-            });
-            return true;
+            result = App.dbcontext.Delete(bill);
+            if(result){
+                this.BillList.remove(bill);
+                this.pot.getListPottem().forEach(potItem -> {
+                    potItem.getListBill().remove(bill);
+                });
+            }
         } catch (Exception e) {
-            return false;
+            Log.d("Model history pot >> delete bill >>", e.getMessage());
         }
+        return result;
     }
 }

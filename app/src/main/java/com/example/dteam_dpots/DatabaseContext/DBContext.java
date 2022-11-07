@@ -20,39 +20,37 @@ public class DBContext {
         cn = new DAO(dpotsApp);
     }
 
-    public <T> void add(T value) {
+    public <T> boolean add(T value) {
         Log.d("DBContext", "DBContext");
         switch (value.getClass().getSimpleName()) {
             case "Income":
                 Income income = (Income) value;
                 if (cn.insertInCome(income))
-                    Log.d("CONSOLE", "ADD thanh cong");
-                else Log.d("CONSOLE", "ADD that bai");
+                    return true;
                 break;
             case "IncomeRange":
                 IncomeRange incomeRange = (IncomeRange) value;
                 if (cn.insertInComeRange(incomeRange.getID(), incomeRange.getName()))
-                    Log.d("CONSOLE", "ADD thanh cong");
-                else Log.d("CONSOLE", "ADD that bai");
+                    return true;
                 break;
             case "Bill":
                 Bill bill = (Bill) value;
                 if (cn.insertBill(bill.getID(), bill.getID_Pottem(), bill.getDate(), bill.getCurrency(), bill.getDescription()))
-                    Log.d("CONSOLE", "ADD thanh cong");
-                else Log.d("CONSOLE", "ADD that bai");
+                    return true;
                 break;
         }
+        return false;
     }
 
-    public <T> void Delete(T value) {
+    public <T> boolean Delete(T value) {
         switch (value.getClass().getSimpleName()) {
             case "Bill":
                 Bill bill = (Bill) value;
                 if (cn.deleteBill(bill.getID()))
-                    Log.d("CONSOLE", "Delete thanh cong");
-                else Log.d("CONSOLE", "Delete that bai");
+                    return true;
                 break;
         }
+        return false;
     }
 
     public <T> void Update(T value) {
@@ -116,10 +114,10 @@ public class DBContext {
         return balance;
     }
 
-    public ArrayList<PotItem> getPotItem(String Potname) {
-        ArrayList<PotItem> potItemList = cn.getListPotItem(Potname);
-        return potItemList;
-    }
+//    public List<PotItem> getPotItem(Pot pot) {
+//        List<PotItem> potItemList = pot.getListPottem();
+//        return potItemList;
+//    }
 
     /*private String ID;
         private String Picture;
@@ -130,10 +128,14 @@ public class DBContext {
     }
 
     public Pot getPot(String potName) {
-        return cn.getPot(potName);
+        return cn.getPotWithName(potName);
     }
 
     public boolean deleteBill(Bill pill) {
         return cn.deleteBill(pill.getID());
+    }
+
+    public List<PotItem> getPotItem() {
+        return cn.getListPotItem();
     }
 }

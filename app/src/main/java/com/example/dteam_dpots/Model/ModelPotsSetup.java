@@ -99,38 +99,32 @@ public class ModelPotsSetup extends com.example.dteam_dpots.Base.Model {
         ArrayList<PotItem> LTS_ITEM = new ArrayList<PotItem>();
         ArrayList<PotItem> PLAY_ITEM = new ArrayList<PotItem>();
 
-        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Food"));
-        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Clothes"));
-        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Transport"));
-        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Health"));
-        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.food, "Food"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.clothes, "Clothes"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.transport, "Transport"));
+        NEC_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.health, "Health"));
 
         potItemDictionary.get(Default.POT_NEC_NAME).addAll(NEC_ITEM);
 
-        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "School"));
-        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "University"));
-        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.school, "School"));
+        EDU_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.university, "University"));
 
         potItemDictionary.get(Default.POT_EDU_NAME).addAll(EDU_ITEM);
 
-        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Car"));
-        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "House"));
-        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.car, "Car"));
+        FFA_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.house, "House"));
 
         potItemDictionary.get(Default.POT_FFA_NAME).addAll(FFA_ITEM);
 
-        GIVE_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Charity"));
-        GIVE_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+        GIVE_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.charity, "Charity"));
 
         potItemDictionary.get(Default.POT_GIVE_NAME).addAll(GIVE_ITEM);
 
-        LTS_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Travel"));
-        LTS_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+        LTS_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.travel, "Travel"));
 
         potItemDictionary.get(Default.POT_LTS_NAME).addAll(LTS_ITEM);
 
-        PLAY_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Entertainment"));
-        PLAY_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.ic_baseline_hourglass_empty_24, "Other"));
+        PLAY_ITEM.add(new PotItem(App.uuid.genID(), R.drawable.entertainment, "Entertainment"));
 
         potItemDictionary.get(Default.POT_PLAY_NAME).addAll(PLAY_ITEM);
 

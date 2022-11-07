@@ -9,6 +9,8 @@ public class Bill {
     private Double Currency;
     private String Description;
 
+    private PotItem potItem;
+
     public Bill(String ID, String ID_Pottem, Date date, Double currency, String description) {
         this.ID = ID;
         this.ID_Pottem = ID_Pottem;
@@ -17,9 +19,25 @@ public class Bill {
         Description = description;
     }
 
+    public Bill(String ID, String ID_Pottem, java.util.Date date, Double currency, String description, PotItem potItem) {
+        this.ID = ID;
+        this.ID_Pottem = ID_Pottem;
+        Date = date;
+        Currency = currency;
+        Description = description;
+        this.potItem = potItem;
+    }
+
     public Bill() {
     }
 
+    public PotItem getPotItem() {
+        return potItem;
+    }
+
+    public void setPotItem(PotItem potItem) {
+        this.potItem = potItem;
+    }
 
     public String getID() {
         return ID;

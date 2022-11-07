@@ -7,8 +7,17 @@ public class PotItem {
     private int Picture;
     private String Name;
     private String ID_Pot;
+    private Pot pot;
     private List<Bill> ListBill;
     private List<PlanBill>ListPlanBill;
+
+    public PotItem(String ID, int picture, String name, String ID_Pot, Pot pot) {
+        this.ID = ID;
+        Picture = picture;
+        Name = name;
+        this.ID_Pot = ID_Pot;
+        this.pot = pot;
+    }
 
     public PotItem(String ID, int picture, String name, String ID_Pot) {
         this.ID = ID;
@@ -53,6 +62,14 @@ public class PotItem {
 
     public void setID_Pot(String ID_Pot) {
         this.ID_Pot = ID_Pot;
+    }
+
+    public Pot getPot() {
+        return pot;
+    }
+
+    public void setPot(Pot pot) {
+        this.pot = pot;
     }
 
     public List<Bill> getListBill() {

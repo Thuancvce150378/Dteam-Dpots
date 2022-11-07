@@ -69,7 +69,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
         txtPotName.setText(pot.getFullName());
 
         TextView txtPotAmount = findViewById(R.id.txtPotAmount);
-        txtPotAmount.setText(_model.doubleToMoneyVND(_model.getPotAmount(PotName)));
+        txtPotAmount.setText(_model.doubleToMoneyVND(_model.getPotAmount()));
 
         ImageButton back = findViewById(R.id.ibBackHistoryPot);
         back.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +80,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
         });
 
         TextView txtPotBalance = findViewById(R.id.txtPotBalance);
-        txtPotBalance.setText(_model.doubleToMoneyVND(_model.getPotBalance(PotName)));
+        txtPotBalance.setText(_model.doubleToMoneyVND(_model.getPotBalance()));
         listPotItem = _model.GetPotItem(PotName);
 
         rcvItemName = findViewById(R.id.recyclerview);
@@ -132,6 +132,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
                             if (result) {
                                 updateHistory("All");
                             } else {
+                                Toast.makeText(ControllerHistoryPot.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception e){
                             Toast.makeText(ControllerHistoryPot.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -331,14 +332,14 @@ public class ControllerHistoryPot extends AppCompatActivity {
 
                 itemName.setText(_model.GetPotItemName(bill.getID_Pottem()));
                 itemDescription.setText(bill.getDescription());
-                price.setText(bill.getCurrency() + "");
+                price.setText(_model.doubleToMoneyVND(bill.getCurrency())+"");
                 ibOptionChoicePotHistory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         PopupMenuHistoryPot(menuBuilder, view, bill);
                     }
                 });
-                history_item_icon.setImageResource(R.drawable.kfc_chicken);
+                history_item_icon.setImageResource(bill.getPotItem().getPicture());
                 tableLayout.addView(view);
             }
 
