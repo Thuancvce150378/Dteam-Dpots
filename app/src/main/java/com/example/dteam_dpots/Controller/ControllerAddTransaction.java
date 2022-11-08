@@ -104,6 +104,9 @@ public class ControllerAddTransaction extends AppCompatActivity implements Adapt
     }
 
     private boolean editTextDateValidate(EditText editTextDate) {
+        if(editTextDate.getText().toString().isEmpty()){
+            editTextDate.setText(editTextDate.getHint());
+        }
         //date check format dd/MM/yyyy
         String[] date = editTextDate.getText().toString().split("/");
         if (date.length != 3) {
@@ -113,6 +116,8 @@ public class ControllerAddTransaction extends AppCompatActivity implements Adapt
         if (date[0].length() != 2 || date[1].length() != 2 || date[2].length() != 4) {
             editTextDate.setError("Date format is dd/MM/yyyy");
             return false;
+            //if null get default value
+
         }
         //date check valid
         Calendar calendar = Calendar.getInstance();
@@ -124,6 +129,7 @@ public class ControllerAddTransaction extends AppCompatActivity implements Adapt
             editTextDate.setError("Date is invalid");
             return false;
         }
+
         return true;
     }
 

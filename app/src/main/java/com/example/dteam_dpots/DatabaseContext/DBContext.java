@@ -35,8 +35,10 @@ public class DBContext {
                 break;
             case "Bill":
                 Bill bill = (Bill) value;
-                if (cn.insertBill(bill.getID(), bill.getID_Pottem(), bill.getDate(), bill.getCurrency(), bill.getDescription()))
+                //value format
+                if (cn.insertBill(bill.getID(), bill.getID_Pottem(),bill.getDate().toString(), bill.getCurrency(), bill.getDescription())) {
                     return true;
+                }
                 break;
         }
         return false;
@@ -53,15 +55,16 @@ public class DBContext {
         return false;
     }
 
-    public <T> void Update(T value) {
+    public <T> boolean Update(T value) {
         switch (value.getClass().getSimpleName()) {
             case "Bill":
                 Bill bill = (Bill) value;
-                if (cn.updateBill(bill.getID(), bill.getDate(), bill.getCurrency(), bill.getDescription()))
-                    Log.d("CONSOLE", "Update thanh cong");
-                else Log.d("CONSOLE", "Update that bai");
+                //value format
+                if (cn.updateBill(bill.getID(), bill.getID_Pottem(), bill.getDate().toString(), bill.getCurrency(), bill.getDescription()))
+                    return true;
                 break;
         }
+        return false;
     }
 
     public List<Bill> GetListBill() {
@@ -137,5 +140,9 @@ public class DBContext {
 
     public List<PotItem> getPotItem() {
         return cn.getListPotItem();
+    }
+
+    public Bill getBill(String pillID) {
+        return cn.getBill(pillID);
     }
 }

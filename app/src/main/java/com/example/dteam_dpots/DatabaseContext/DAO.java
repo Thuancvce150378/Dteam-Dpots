@@ -167,7 +167,8 @@ public class DAO extends SQLiteOpenHelper {
         } else {
             List<Bill> billList = new ArrayList<>();
             while (c.moveToNext()) {
-                @SuppressLint("Range") Bill bill = new Bill(c.getString(c.getColumnIndex("ID"))
+                @SuppressLint("Range") Bill bill = new Bill(
+                        c.getString(c.getColumnIndex("ID"))
                         , c.getString(c.getColumnIndex("ID_PotItem"))
                         , new Date(c.getString(c.getColumnIndex("date")))
                         , c.getDouble(c.getColumnIndex("currency"))
@@ -195,12 +196,12 @@ public class DAO extends SQLiteOpenHelper {
     }
 
     /*Insert Bill*/
-    public Boolean insertBill(String ID, String ID_Pottem, Date Date, Double Currency, String Description) {
+    public Boolean insertBill(String ID, String ID_Pottem, String Date, Double Currency, String Description) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", ID);
         contentValues.put("ID_PotItem", ID_Pottem);
-        contentValues.put("date", String.valueOf(Date));
+        contentValues.put("date", Date);
         contentValues.put("currency", Currency);
         contentValues.put("description", Description);
 
@@ -229,16 +230,17 @@ public class DAO extends SQLiteOpenHelper {
     }
 
     /*Delete Bill*/
-    public Boolean updateBill(String ID, Date Date, Double Currency, String Description) {
+    public Boolean updateBill(String ID,String ID_PotItem, String Date, Double Currency, String Description) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", ID);
-        contentValues.put("date", String.valueOf(Date));
+        contentValues.put("date", Date);
         contentValues.put("currency", Currency);
+        contentValues.put("ID_PotItem", ID_PotItem);
         contentValues.put("description", Description);
         Cursor cursor = DB.rawQuery("Select * from tbBill where ID = ?", new String[]{ID});
         if (cursor.getCount() > 0) {
-            long result = DB.update("tbBill", contentValues, "name=?", new String[]{ID});
+            long result = DB.update("tbBill", contentValues, "ID=?", new String[]{ID});
             if (result == -1) {
                 return false;
             } else {
@@ -401,5 +403,23 @@ public class DAO extends SQLiteOpenHelper {
             potItems.addAll(pot.getListPottem());
         }
         return potItems;
+    }
+
+    public Bill getBill(String pillID) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor c = DB.rawQuery("SELECT * FROM tbBill where ID = ?", new String[]{pillID});
+        if (c == null) {
+            return null;
+        } else {
+            c.moveToFirst();
+            @SuppressLint("Range") Bill bill = new Bill(
+                    c.getString(c.getColumnIndex("ID"))
+                    , c.getString(c.getColumnIndex("ID_PotItem"))
+                    , new Date(c.getString(c.getColumnIndex("date")))
+                    , c.getDouble(c.getColumnIndex("currency"))
+                    , c.getString(c.getColumnIndex("description"))
+            );
+            return bill;
+        }
     }
 }

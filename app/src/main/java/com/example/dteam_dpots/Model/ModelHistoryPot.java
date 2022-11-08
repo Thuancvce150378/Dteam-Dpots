@@ -25,9 +25,12 @@ public class ModelHistoryPot extends Model {
             pot = App.dbcontext.getPot(potName);
         return pot;
     }
+    public boolean updatePot(){
+        this.pot = App.dbcontext.getPot(this.pot.getShortName());
+        return true;
+    }
 
     public List<PotItem> GetAllPotItemList() {
-        if (PotItemList == null)
             PotItemList = this.pot.getListPottem();
         return PotItemList;
     }
@@ -49,7 +52,7 @@ public class ModelHistoryPot extends Model {
             }
         } else {
             //get list bill by date
-            for (PotItem potItem : PotItemList) {
+            for (PotItem potItem : this.GetAllPotItemList()) {
                 bills.addAll(potItem.getListBill().stream().filter(bill -> GetPotItemName(bill.getID_Pottem()).equals(filter)).collect(Collectors.toList()));
             }
         }

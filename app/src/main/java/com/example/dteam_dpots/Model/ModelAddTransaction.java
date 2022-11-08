@@ -2,12 +2,14 @@ package com.example.dteam_dpots.Model;
 
 import android.os.Build;
 import android.text.Editable;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.dteam_dpots.Beans.*;
 import com.example.dteam_dpots.Base.*;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -32,13 +34,20 @@ public class ModelAddTransaction extends Model {
     }
 
     public boolean addBill(String idPotItem, String amount,String date, String description) {
-        Bill Bill = new Bill(
-                App.uuid.genID(),
-                idPotItem,
-                new Date(date),
-                Double.parseDouble(amount),
-                description
-        );
+
+        Bill Bill = null;
+        try {
+            Bill = new Bill(
+                    App.uuid.genID(),
+                    idPotItem,
+                    App.format.getDateDdMmYyyy(date),
+                    Double.parseDouble(amount),
+                    description
+            );
+        } catch (ParseException e) {
+            Log.d("Error", e.getMessage());
+            return false;
+        }
         return App.dbcontext.add(Bill);
     }
 }

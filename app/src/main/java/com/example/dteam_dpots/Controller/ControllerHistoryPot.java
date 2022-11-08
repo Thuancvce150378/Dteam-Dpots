@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Dictionary;
@@ -54,6 +55,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
     private LinearLayoutManager BillGroupLayoutManger;
     private List<Bill> listBill;
     private List<PotItem> listPotItem;
+    private String currentItemName = "All";
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("RestrictedApi")
@@ -84,7 +86,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
         listPotItem = _model.GetPotItem(PotName);
 
         rcvItemName = findViewById(R.id.recyclerview);
-        RecyclerViewLayoutManager= new LinearLayoutManager(getApplicationContext());
+        RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
         rcvItemName.setLayoutManager(RecyclerViewLayoutManager);
         adapterListItemName = new ListItemAdapter(listPotItem);
         HorizontalLayout = new LinearLayoutManager(
@@ -112,6 +114,14 @@ public class ControllerHistoryPot extends AppCompatActivity {
         inflater.inflate(R.menu.popupmenuoptionchoice, menuBuilder);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateHistory(currentItemName);
+    }
+
+
     @SuppressLint("RestrictedApi")
     public void PopupMenuHistoryPot(MenuBuilder a, View view, Bill pill) {
         @SuppressLint("RestrictedApi") MenuPopupHelper optionMenu = new MenuPopupHelper(this, a, view);
@@ -130,11 +140,11 @@ public class ControllerHistoryPot extends AppCompatActivity {
                         try {
                             boolean result = _model.deleteBill(pill);
                             if (result) {
-                                updateHistory("All");
+                                updateHistory(currentItemName);
                             } else {
                                 Toast.makeText(ControllerHistoryPot.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(ControllerHistoryPot.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                         return true;
@@ -153,6 +163,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateHistory(String itemName) {
+        _model.updatePot();
         this.listBill = this._model.getBill(itemName);
         //bills remove all same bill
         //update Recycle view
@@ -220,13 +231,14 @@ public class ControllerHistoryPot extends AppCompatActivity {
 
     class ListGroupBillAdapter extends RecyclerView.Adapter<ListGroupBillAdapter.GroupBill> {
         private List<Bill> list;
-        private Collection AllDate;
+        private List<Date> AllDate;
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         ListGroupBillAdapter(List<Bill> bills) {
             bills.stream().sorted((b1, b2) -> b2.getDate().compareTo(b1.getDate()));
             this.list = bills;
-            this.AllDate = bills.stream().map(bill -> bill.getDate()).collect(Collectors.toSet());
+            //sort alldate
+            this.AllDate = bills.stream().map(bill -> bill.getDate()).collect(Collectors.toSet()).stream().sorted((e, d) -> d.compareTo(e)).collect(Collectors.toList());
         }
 
         @NonNull
@@ -240,56 +252,54 @@ public class ControllerHistoryPot extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull GroupBill holder, int position) {
             //get obj Date at position
-            if (position < this.AllDate.size()) {
-                Date date = (Date) this.AllDate.toArray()[position];
-                // Set the text of each item of Recycler view with the list items
-                //get day in week
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                String day = "";
-                switch (dayOfWeek) {
-                    case 1:
-                        day = "Chủ nhật";
-                        break;
-                    case 2:
-                        day = "Thứ hai";
-                        break;
-                    case 3:
-                        day = "Thứ ba";
-                        break;
-                    case 4:
-                        day = "Thứ tư";
-                        break;
-                    case 5:
-                        day = "Thứ năm";
-                        break;
-                    case 6:
-                        day = "Thứ sáu";
-                        break;
-                    case 7:
-                        day = "Thứ bảy";
-                        break;
-                }
-
-                //get date in month
-                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-
-                holder.txtDay.setText(day);
-                holder.txtMonth.setText(date.getMonth() + "");
-                holder.txtYear.setText(date.getYear() + "");
-                holder.txtDated.setText(dayOfMonth + "");
-                List<Bill> BillInday = this.list.stream().filter(bill -> bill.getDate().equals(date)).collect(Collectors.toList());
-                int total = 0;
-                for (Bill bill : BillInday) {
-                    total += bill.getCurrency();
-                    holder.addBillDetail(bill);
-                }
-                holder.txtTotal.setText(total + "");
+            Date date = this.AllDate.get(position);
+            // Set the text of each item of Recycler view with the list items
+            //get day in week
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            String day = "";
+            switch (dayOfWeek) {
+                case 1:
+                    day = "Chủ nhật";
+                    break;
+                case 2:
+                    day = "Thứ hai";
+                    break;
+                case 3:
+                    day = "Thứ ba";
+                    break;
+                case 4:
+                    day = "Thứ tư";
+                    break;
+                case 5:
+                    day = "Thứ năm";
+                    break;
+                case 6:
+                    day = "Thứ sáu";
+                    break;
+                case 7:
+                    day = "Thứ bảy";
+                    break;
             }
+            holder.txtDay.setText(day);
+            //get month in year
+            int month = calendar.get(Calendar.MONTH);
+            holder.txtMonth.setText(month + 1 + "-");
 
-
+            //get year
+            int year = calendar.get(Calendar.YEAR);
+            holder.txtYear.setText(year + "");
+            //get date
+            int dateOfMonth = calendar.get(Calendar.DATE);
+            holder.txtDated.setText(dateOfMonth + "");
+            List<Bill> BillInday = this.list.stream().filter(bill -> bill.getDate().equals(date)).collect(Collectors.toList());
+            int total = 0;
+            for (Bill bill : BillInday) {
+                total += bill.getCurrency();
+                holder.addBillDetail(bill);
+            }
+            holder.txtTotal.setText(total + "");
         }
 
         @Override
@@ -332,7 +342,7 @@ public class ControllerHistoryPot extends AppCompatActivity {
 
                 itemName.setText(_model.GetPotItemName(bill.getID_Pottem()));
                 itemDescription.setText(bill.getDescription());
-                price.setText(_model.doubleToMoneyVND(bill.getCurrency())+"");
+                price.setText(_model.doubleToMoneyVND(bill.getCurrency()) + "");
                 ibOptionChoicePotHistory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
